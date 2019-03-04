@@ -1,0 +1,110 @@
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+/*   
+  <tr>
+  <td class="tabnum"></td>
+  <td class="tabname"></td>
+  <td class="tablink"></td>
+  </tr>
+*/
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+    text-align: left;
+  }
+</style>
+
+<body onload="chkFavList()">
+  <br><h1>
+    Favourites
+  </h1> 
+  <table id="favListTable" name="favListTable" style="width:100%">
+    <tr>
+      
+      <th>No.</th>
+      
+      <th>Item</th>
+<!--      
+      <th>Description</th>
+-->
+      <th>Click to Remove</th>
+ 
+    </tr>
+<!--     
+    <tr>
+      <td>No.</td>
+      <td>user</td>
+      <td>title</td>
+    </tr>
+-->
+    <tr>
+      <td class="tabnum"></td>
+      <td class="tabname"></td>
+<!--
+      <td class="tabinfo"></td>
+-->
+      <td class="tabBtn"></td>
+    </tr>
+  </table>
+  <script>
+function chkFavList() {
+
+      $.ajax({
+        //url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/getFaves",
+        url: "http://127.0.0.1:9999/getFaves",
+        type: 'GET',
+        async: false,
+        success: function(data) {
+          alert(JSON.stringify(data));
+          var _stringObj = JSON.stringify(data);
+          var stringObj = JSON.parse(data);
+          //if (stringObj.Msg != "") {
+            for (i = 0; i < stringObj.length; i++) {
+              $('#favListTable').append(
+               "<tr>"+
+               "<td class=\"tabnum\">" + i + "</td>"+
+               "<td class=\"tabname\">" + stringObj[i] + "</td>" +
+               "<td class=\"tabBtn\">" + "<button id=\"deleteBtn\" onclick=\"deleteBtnnn('"+stringObj[i]+"')\">Delete</button>"+
+               "</tr>"
+              );
+            }
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          alert("error");
+          alert(xhr.responseText);
+          //alert(xhr.d);
+        },
+      });
+    }
+
+    function deleteBtnnn(i){
+      //TODO
+      alert(i);
+
+      $.ajax({
+        url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/delFaves",
+        type: 'POST',
+        async: false,
+        data: i,
+        success: function(data) {
+          chkFavList();
+        },
+        error: function(xhr, textStatus, errorThrown) {
+          alert("error");
+          alert(xhr.responseText);
+          //alert(xhr.d);
+        },
+      });
+    }</script>
+  <br>
+  <a href="/index">back</a>
+</body>
+
+</html>

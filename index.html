@@ -1,0 +1,867 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Theme Made By www.w3schools.com - No Copyright -->
+    <title>177370493's 305CDE Assignment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font: 400 15px/1.8 Lato, sans-serif;
+            color: #777;
+        }
+
+        h3,
+        h4 {
+            margin: 10px 0 30px 0;
+            letter-spacing: 10px;
+            font-size: 20px;
+            color: #111;
+        }
+
+        .container {
+            padding: 80px 120px;
+        }
+
+        .person {
+            border: 10px solid transparent;
+            margin-bottom: 25px;
+            width: 80%;
+            height: 80%;
+            opacity: 0.7;
+        }
+
+            .person:hover {
+                border-color: #f1f1f1;
+            }
+
+        .carousel-inner img {
+            -webkit-filter: grayscale(90%);
+            filter: grayscale(90%);
+            /* make all photos black and white */
+            width: 100%;
+            /* Set width to 100% */
+            margin: auto;
+        }
+
+        .carousel-caption h3 {
+            color: #fff !important;
+        }
+
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+                /* Hide the carousel text when the screen is less than 600 pixels wide */
+            }
+        }
+
+        .bg-1 {
+            background: #2d2d30;
+            color: #bdbdbd;
+        }
+
+            .bg-1 h3 {
+                color: #fff;
+            }
+
+            .bg-1 p {
+                font-style: italic;
+            }
+
+        .list-group-item:first-child {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .thumbnail {
+            padding: 0 0 15px 0;
+            border: none;
+            border-radius: 0;
+        }
+
+            .thumbnail p {
+                margin-top: 15px;
+                color: #555;
+            }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #f1f1f1;
+            border-radius: 0;
+            transition: .2s;
+        }
+
+            .btn:hover,
+            .btn:focus {
+                border: 1px solid #333;
+                background-color: #fff;
+                color: #000;
+            }
+
+        .nav-tabs li a {
+            color: #777;
+        }
+
+        #googleMap {
+            width: 100%;
+            height: 400px;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+
+        .navbar {
+            font-family: Montserrat, sans-serif;
+            margin-bottom: 0;
+            background-color: #2d2d30;
+            border: 0;
+            font-size: 11px !important;
+            letter-spacing: 4px;
+            opacity: 0.9;
+        }
+
+            .navbar li a,
+            .navbar .navbar-brand {
+                color: #d5d5d5 !important;
+            }
+
+        .navbar-nav li a:hover {
+            color: #fff !important;
+        }
+
+        .navbar-nav li.active a {
+            color: #fff !important;
+            background-color: #29292c !important;
+        }
+
+        .navbar-default .navbar-toggle {
+            border-color: transparent;
+        }
+
+        .open .dropdown-toggle {
+            color: #fff;
+            background-color: #555 !important;
+        }
+
+        .dropdown-menu li a {
+            color: #000 !important;
+        }
+
+            .dropdown-menu li a:hover {
+                background-color: red !important;
+            }
+
+        footer {
+            background-color: #2d2d30;
+            color: #f5f5f5;
+            padding: 32px;
+        }
+
+            footer a {
+                color: #f5f5f5;
+            }
+
+                footer a:hover {
+                    color: #777;
+                    text-decoration: none;
+                }
+
+        .form-control {
+            border-radius: 0;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* The side navigation menu */
+        .sidenav {
+            height: 100%; /* 100% Full-height */
+            width: 0; /* 0 width - change this with JavaScript */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Stay on top */
+            top: 0; /* Stay at the top */
+            right: 0;
+            background-color: #ffff66; /* Black*/
+            overflow-x: hidden; /* Disable horizontal scroll */
+            padding-top: 60px; /* Place content 60px from the top */
+            transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+        }
+
+            /* Position and style the close button (top right corner) */
+            .sidenav .closebtn {
+                position: absolute;
+                top: 0;
+                right: 25px;
+                font-size: 36px;
+                margin-left: 50px;
+            }
+
+        /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+        #main {
+            transition: margin-left .5s;
+            padding: 40px;
+        }
+
+        .sidenav h2 {
+            padding-left: 5px
+        }
+
+        .sidenav h3 {
+            padding-left: 5px
+        }
+
+        .sidenav button {
+            padding-left: 10px;
+            margin-left: 10px;
+        }
+
+        .sidenav form {
+            padding-left: 5px;
+        }
+
+        .sidenav td {
+            padding-left: 15px;
+            font-size: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .card {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 1px solid rgb(0,0,0);
+            border-radius: .25rem;
+            padding: 25px;
+        }
+    </style>
+</head>
+
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <!-- Container (NavBar Section) -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#myPage">Ethical Topic: Drug Taking</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#category">CATEGORY</a></li>
+                    <li><a href="#destinations">DESTINATIONS</a></li>
+                    <li><a href="#external">EXTERNAL</a></li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dropdownBtn">
+                            LOGIN/REGISTER
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Register" name="register" id="registerBtn">REGISTER</a></li> <!-- hidden when login-->
+                            <li><a href="/Login" name="login" id="loginBtn">LOGIN</a></li> <!-- hidden when login-->
+                            <li><a href="/faves" name="favourites" id="favesBtn">FAVOURITES</a></li> <!-- show when login-->
+                            <li><a href="" name="logout" id="logoutBtn">LOGOUT</a></li> <!-- show when login-->
+                        </ul>
+                    </li>
+                    <!-- side nav for this -->
+                    <li><a><span class="glyphicon glyphicon-search" onclick="openNav()"></span></a></li>
+                    <div id="mySidenav" class="sidenav">
+                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                        <h2>Find alias of Drugs</h2>
+                        <form id="find" name="search">
+                            <input id="qry" type="text" placeholder="Search.." name="queryInput">
+                            <button type="submit" id="searchBtn">Submit</button>
+                        </form>
+                        <br>
+                        <h3>alias and risks</h3>
+                        <table id="mytable">
+                            <tr>
+                                <!--<td class="tabnum"></td>-->
+                                <!--<td class="tabname"></td>-->
+
+                                <br>
+                                <td class="tabdetail"></td>
+                                <br>
+                                <td class="tabxtra"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Container (PROPRAGANDA Section) -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="https://i.pinimg.com/originals/41/d4/b5/41d4b500ddb7f18811bf54b45052792a.jpg" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Vintage Cocaine Propaganda</h3>
+                    <p>Propaganda from 40s.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="https://pbs.twimg.com/media/BsXOEV3CEAEsEVW.jpg" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Cure?</h3>
+                    <p>Find the truth.</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="http://reefermadnessmuseum.org/book/DrugDemonS.jpg" width="1200" height="700">
+                <div class="carousel-caption">
+                    <h3>Marihuana</h3>
+                    <p>From the Reefer Madness Era</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!-- Container (ABOUT Section) -->
+    <div id="about" class="container text-center">
+        <h3>About</h3>
+        <p><em>Don't be confused with drug abuse!</em></p>
+        <p>
+            We all have pressures, but it doesn't mean we can rely drugs to get away.
+            Understand drug usage and identify legal and illegal drugs.
+        </p>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Entheogen</strong></p><br>
+                <a href="#demo" data-toggle="collapse">
+                    <img src="http://www.hinduhumanrights.info/wp-content/uploads/2012/08/photo_1329727286887-1-0-e1345401265564.jpeg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo" class="collapse">
+                    <p>Spiritual use</p>
+                    <p>Religious use</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Nootropics</strong></p><br>
+                <a href="#demo2" data-toggle="collapse">
+                    <img src="https://www.purelyb.com/images/easyblog_shared/2e1ax_content_entry_blog-Brain-Mredicine.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo2" class="collapse">
+                    <p>Smart drugs/ cognitive enhancers</p>
+                    <p>functions boost</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Recreational</strong></p><br>
+                <a href="#demo3" data-toggle="collapse">
+                    <img src="https://www.drugrehab.us/wp-content/uploads/2013/02/recreational-drug-use.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo3" class="collapse">
+                    <p>induce an altered state of consciousness for pleasure</p>
+                    <p>a tolerated social behaviour</p>
+                    <p>wide range: include beers, coffee, tobacco</p>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <p class="text-center"><strong>Medication</strong></p><br>
+                <a href="#demo4" data-toggle="collapse">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Woman_consults_with_pharmacist.jpg/300px-Woman_consults_with_pharmacist.jpg" class="img-circle person" alt="Random Name" width="255" height="255">
+                </a>
+                <div id="demo4" class="collapse">
+                    <p>diagnose</p>
+                    <p>cure</p>
+                    <p>treat</p>
+                    <p>prevent disease</p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <p>
+            <a href="https://commons.wikimedia.org/wiki/File:HarmCausedByDrugsTable.svg#/media/File:HarmCausedByDrugsTable.svg"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/HarmCausedByDrugsTable.svg" alt="HarmCausedByDrugsTable.svg" height="480" width="621"></a><br>By User:Tesseract2 - <a rel="nofollow" class="external text" href="http://www.economist.com/blogs/dailychart/2010/11/drugs_cause_most_harm">"Scoring drugs", The Economist</a>, data from "Drug harms in the UK: a multi-criteria decision analysis", by David Nutt, Leslie King and Lawrence Phillips, on behalf of the Independent Scientific Committee on Drugs. The Lancet. 2010 Nov 6;376(9752):1558-65. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" class="extiw" title="w:Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://dx.doi.org/10.1016%2FS0140-6736%2810%2961462-6">10.1016/S0140-6736(10)61462-6</a> <a href="https://en.wikipedia.org/wiki/PubMed_Identifier" class="extiw" title="w:PubMed Identifier">PMID</a>:<a rel="nofollow" class="external text" href="https://www.ncbi.nlm.nih.gov/sites/entrez?cmd=retrieve&amp;db=pubmed&amp;list_uids=21036393&amp;dopt=Abstract">21036393</a>
+            <a rel="nofollow" class="external free" href="http://www.drugscience.org.uk/whatwedo/drugharms">
+                http://www.drugscience.org.uk/whatwedo/drugharms
+            </a>,
+            <a href="https://creativecommons.org/licenses/by-sa/3.0" title="Creative Commons Attribution-Share Alike 3.0">
+                CC BY-SA 3.0
+            </a>, <a href="https://commons.wikimedia.org/w/index.php?curid=17243892">Link</a>
+        </p>
+    </div>
+
+    <!-- Container (CATEGORY Section) -->
+    <div id="category" class="bg-1">
+        <div class="container">
+            <h2 class="text-center">Common examples of drugs</h2>
+            <h3 class="text-center">DEFINE LEGAL...</h3>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home">Nicotine</a></li>
+                <li><a data-toggle="tab" href="#menu1">Alcohol</a></li>
+                <li><a data-toggle="tab" href="#menu2">Caffeine</a></li>
+                <li><a data-toggle="tab" href="#menu3">Marijuana</a></li>
+                <li><a data-toggle="tab" href="#menu4">Ambien</a></li>
+                <li><a data-toggle="tab" href="#menu5">Methylphenidate</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <h2>CIGARETTES</h2>
+                    <p>sign a petition to stop these bastard !!!</p>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <h2>Beer, Wine</h2>
+                    <p>enjoy your drink after work? Don't pleasure become pressure. </p>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h2>Coffee, soda, energy drinks</h2>
+                    <p>Although highly effective to keep awake, it's not a good practice. </p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h2>wwweeeeedddd!@#$%^</h2>
+                    <p>illegal in many countries</p>
+                </div>
+                <div id="menu4" class="tab-pane fade">
+                    <h2>having trouble to sleep?</h2>
+                    <p>a highly effective medication to help, very easy to become dependent, so using it beyond a few days is asking for trouble.</p>
+                </div>
+                <div id="menu5" class="tab-pane fade">
+                    <h2>for ADHD patient</h2>
+                    <p>some normal-idiots think it helps them focus without considering side effects</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container (DESTINATIONS Section) -->
+    <div id="destinations" class="container">
+        <h3 class="text-center">MAP</h3>
+        <p class="text-center"><em>See countries with different drug policy!</em></p>
+        <!-- Add Google Maps -->
+        <div id="googleMap"></div>
+        <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(41.878114, -87.629798);
+            var mapProp = {
+                center: myCenter,
+                zoom: 12,
+                scrollwheel: false,
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({
+                position: myCenter
+            });
+            marker.setMap(map);
+        }
+    </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFUkX6a7GRcY5QpWrY7qFBLQ8_ktSdOEM&callback=myMap"></script>
+        <!--
+        To use this code on your website, get a free API key from Google.
+        Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+        -->
+    </div>
+
+    <!-- Container (EXTERNAL Section) -->
+    <div id="external" class="bg-1">
+        <div class="container">
+            <h3 class="text-center">LINKS</h3>
+            <p class="text-center">We find you something to read on.<br> Remember that drugs are not ultimate solution</p>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/i2Hwljj2EcY?rel=0"
+                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <br>
+            <h2>PsychonautWiki</h2>
+            <p><a href="https://psychonautwiki.org/wiki/PsychonautWiki">Visit</a></p>
+        </div>
+    </div>
+
+    <!-- Container (FAVOURITES Section) -->
+    <div id="faves" class="container">
+        <p class="text-center">Try some legal drugs.</p>
+        <table style="width:100%">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Click to add faves</th>
+            </tr>
+            <tr>
+                <td>Beer</td>
+                <td>the liquid bread</td>
+                <td><button name="f1" id="fBtn1">Fav</button></td>
+            </tr>
+            <tr>
+                <td>Whisky</td>
+                <td>water of life</td>
+                <td><button name="f2" id="fBtn2">Fav</button></td>
+            </tr>
+            <tr>
+                <td>Rum</td>
+                <td>sweeties</td>
+                <td><button name="f3" id="fBtn3">Fav</button></td>
+            </tr>
+            <tr>
+                <td>Vodka</td>
+                <td>vvvvv</td>
+                <td><button name="f4" id="fBtn4">Fav</button></td>
+            </tr>
+            <tr>
+                <td>Tequila</td>
+                <td>mexico</td>
+                <td><button name="f5" id="fBtn5">Fav</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Container (FAVOURITES Section) Card Test-->
+    <div id="cardtest" class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body" id="card1">
+                        <!--find a way to contain both detail and display on seperate html-->
+                        <h5 class="card-title" id="abc">treatment 1</h5>
+                        <p class="card-text" id="abc2">ha ha ha</p>
+                    </div>
+                    <a href="#" class="btn btn-primary" id="favBtn1" name="cardBtn">add to favourites</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="def">treatment 2</h5>
+                        <p class="card-text" id="def2">blah blah blah</p>
+                        <a href="#" class="btn btn-primary" id="favBtn2" name="cardBtn">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="ghi">treatment 3</h5>
+                        <p class="card-text" id="ghi2">wa la la</p>
+                        <a href="#" class="btn btn-primary" id="favBtn3" name="cardBtn">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="jkl">Special title treatment</h5>
+                        <p class="card-text" id="jkl2">descriptions</p>
+                        <a href="#" class="btn btn-primary" id="favBtn4">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">descriptions</p>
+                        <a href="#" class="btn btn-primary">add to favourites</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a><br><br>
+    </footer>
+
+    <!-- scripts -->
+    <script>
+    $(document).ready(function() {
+
+      var localId = localStorage.getItem("id");
+      //var localName = localStorage.getItem("Name");
+      alert("localId= " + localId);
+      //alert("localName= " + localName);
+
+      // login starts here
+        if (localId != null) {
+          $("#loginBtn").hide();
+          $("#registerBtn").hide();
+          $("#dropdownBtn").text("FAVOURITES/LOGOUT");
+            //for each loop here
+            //alert("all cardBtns has been disabled)
+          //alert("login,register button hidden");
+        } else {
+          $("#logoutBtn").hide();
+          $("#favesBtn").hide();
+            //for each loop here
+            //alert('all cardBtns are enabled');
+        }
+
+      // logout starts here
+      $("#logoutBtn").click(function(){
+        localStorage.removeItem("id");
+        $("#loginBtn").show();
+        $("#registerBtn").show();
+        $("#dropdownBtn").text("LOGIN/REGISTER");
+        alert("login,register button unhide");
+      });
+
+      // favBtn starts here
+      $("#favBtn1").click(function() {
+        var d1=$("#abc").text();
+        var d2=$("#abc2").val();
+
+        alert("value of d2= " + d2);
+
+        var data = localId + "&" + d1;
+
+        alert("value of localId = " + localId);
+                $.ajax({
+                    url: "http://127.0.0.1:9999/addFaves",
+                    type: 'post',
+                    //data: $('#fav1Content').serialize(),
+                    data: data,
+                    success: function(result) {
+                        alert(result);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("error = " + textStatus);
+                        console.log(textStatus);
+                    }
+                });
+        });
+       $("#favBtn2").click(function() {
+        var d1=$("#def").text();
+        var d2=$("#def2").val();
+
+        alert("value of d2= " + d2);
+
+        var data = localId + "&" + d1;
+
+        alert("value of localId = " + localId);
+                $.ajax({
+                    url: "http://127.0.0.1:9999/addFaves",
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        alert(result);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("error = " + textStatus);
+                        console.log(textStatus);
+                    }
+                });
+        });
+
+        $("#favBtn3").click(function() {
+        var d1=$("#ghi").text();
+
+        var data = localId + "&" + d1;
+
+        alert("value of localId = " + localId);
+                $.ajax({
+                    url: "http://127.0.0.1:9999/addFaves",
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        alert(result);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("error = " + textStatus);
+                        console.log(textStatus);
+                    }
+                });
+        });
+        /*
+        $("input[type='button']").click(function() {
+            switch($(this).attr('id')) {
+                case 'buttonone' : $("#content").html("Content changed"); break;
+                case 'buttontwo' : $("#content").html("Content changed again"); break;
+                }
+        });
+        */
+
+        $(document).on('submit', '#find', function() {
+          return false;
+        });
+
+      // search starts here
+      $("#searchBtn").click(function() {
+          var tempSearch;
+          tempSearch = document.forms["search"]["queryInput"].value;
+          alert("tempSearch: "+ tempSearch);
+          if(tempSearch != "") {
+            $.ajax({
+                //url: "http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/index",
+                url: "127.0.0.1:9999",
+                type: 'POST',
+                //data: $('#find').serialize(),
+                data: tempSearch,
+                  success: function(resultReturn){
+                    alert("search success");
+                    //alert(JSON.stringify(resultReturn));
+                    var _stringObj = JSON.stringify(resultReturn);
+                    var stringObj = JSON.parse(resultReturn);
+                    for(i = 0; i < stringObj.length; i++) {
+                      //var num = i + 1;
+                      //document.getElementsByClassName("tabnum")[i].innerHTML = num;
+                      //document.getElementsByClassName("tabname")[i].innerHTML = stringObj[i].name;
+                      document.getElementsByClassName("tabdetail")[i].innerHTML = stringObj[i].description;
+                      document.getElementsByClassName("tabxtra")[i].innerHTML = stringObj[i].risks;
+                     }
+                    document.forms["search"]["queryInput"].value ="";
+                    //return false;
+                  }
+                ,error: function (xhr, textStatus, errorThrown)
+                {
+                  alert("search failed");
+                  console.log(textStatus);
+                  alert(xhr.responseText);
+                }
+              });
+            }
+        });
+
+      // Initialize Tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+
+      // Add smooth scrolling to all links in navbar + footer link
+      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 900, function() {
+
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+          });
+        } // End if
+      });
+    })
+  // Set the width of the side navigation to 500px
+  function openNav() { document.getElementById("mySidenav").style.width = "500px"; }
+  // Set the width of the side navigation to 0
+  function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+    </script>
+
+</body>
+
+</html>

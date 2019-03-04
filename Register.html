@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="Register.css" />
+  <title>Register</title>
+</head>
+
+<style>
+  body {
+    margin: 0px;
+    padding: 0px;
+    background: #1abc9d;
+  }
+
+  h1 {
+    color: #fff;
+    text-align: center;
+    font-family: Arial;
+    font-weight: normal;
+    margin: 2em auto 0px;
+  }
+
+  .form {
+    width: 400px;
+    height: 230px;
+    background: #edeff1;
+    margin: 0px auto;
+    padding-top: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+  }
+
+  input[type="text"] {
+    display: block;
+    width: 309px;
+    height: 35px;
+    margin: 15px auto;
+    background: #fff;
+    border: 0px;
+    padding: 5px;
+    font-size: 16px;
+    border: 2px solid #fff;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+  }
+
+  input[type="text"]:focus {
+    border: 2px solid #1abc9d
+  }
+
+  input[type="submit"] {
+    display: block;
+    background: #1abc9d;
+    width: 314px;
+    padding: 12px;
+    cursor: pointer;
+    color: #fff;
+    border: 0px;
+    margin: auto;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    font-size: 17px;
+    transition: all 0.3s ease;
+  }
+
+  input[type="submit"]:hover {
+    background: #09cca6
+  }
+
+  a {
+    text-align: center;
+    font-family: Arial;
+    color: gray;
+    display: block;
+    margin: 15px auto;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 12px;
+  }
+
+  a:hover {
+    color: #1abc9d;
+  }
+
+  ::-webkit-input-placeholder {
+    color: gray;
+  }
+
+  :-moz-placeholder {
+    /* Firefox 18- */
+    color: gray;
+  }
+
+  ::-moz-placeholder {
+    /* Firefox 19+ */
+    color: gray;
+  }
+
+  :-ms-input-placeholder {
+    color: gray;
+  }
+</style>
+
+<body>
+
+  <h1>Register to add faves!</h1>
+
+  <div class="stand">
+    <div class="outer-screen">
+      <div class="inner-screen">
+        <div class="form">
+          <form id="credential">
+            <input type="text" placeholder="Chris Wong" id="name" name="name" required/>
+            <input type="text" class="zocial-dribbble" placeholder="abc@example.com" id="email" name="email" autofocus required/>
+            <input type="text" placeholder="Password" id="password" name="password" required/>
+          </form>
+          <button id="Register">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<script>
+var name = document.getElementById("name");
+  var email = document.getElementById("email");
+  var password = document.getElementById("password");
+
+  $("#Register").click(function() {
+    alert("registering");
+    //if (name.value != null && password.value != null){
+      if (email.value.includes("@") && email.value.includes(".com")) {
+        alert("valid email"); //case for email
+    //ajax call url parameter must contain "http://"
+          $.ajax({
+            //url: "http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/Register",
+            url: "http://127.0.0.1:9999/Register",
+            type: 'post',
+            data: $('#credential').serialize(),
+            success: function(result) {
+              console.log("register page post return= " + result);
+              //window.location.assign("http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/Login");
+              window.location.assign("http://127.0.0.1:9999/Login");
+            },
+            error: function(xhr, textStatus, errorThrown) {
+              alert("error=" + textStatus);
+              console.log(textStatus);
+            }
+          });
+      } else
+        alert("Error");
+        console.log("error on registration!");
+        //window.location.assign("127.0.0.1:9999/Register");
+    //}
+  });</script>
