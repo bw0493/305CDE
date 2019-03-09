@@ -29,24 +29,15 @@
             padding: 80px 120px;
         }
 
-        .person {
-            border: 10px solid transparent;
-            margin-bottom: 25px;
-            width: 80%;
-            height: 80%;
-            opacity: 0.7;
-        }
-
-            .person:hover {
-                border-color: #f1f1f1;
-            }
-
         .carousel-inner img {
             -webkit-filter: grayscale(90%);
             filter: grayscale(90%);
             /* make all photos black and white */
             width: 100%;
             /* Set width to 100% */
+            max-height: 800px;
+            /* use it to restrict*/
+            background-size: cover;
             margin: auto;
         }
 
@@ -59,6 +50,15 @@
                 display: none;
                 /* Hide the carousel text when the screen is less than 600 pixels wide */
             }
+        }
+
+        .bg-0 {
+            background:#008080;
+            color:#FFA500;
+        }
+
+        .jumbotron {
+            background: #FFF8DC;
         }
 
         .bg-1 {
@@ -259,20 +259,27 @@
             word-wrap: break-word;
             background-color: #fff;
             background-clip: border-box;
-            border: 1px solid rgb(0,0,0);
+            border: 2px solid rgb(0,0,0);
             border-radius: .25rem;
             padding: 25px;
         }
+        /*
+        .col-sm-6 {
+            margin-top: 0.1rem;
+            margin-bottom: 0.1rem;
+            margin-left: 0.1rem;
+            margin-right: 0.1rem;
+        }*/
     </style>
 </head>
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="100">
 
     <!-- Container (NavBar Section) -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#myPage">Ethical Topic: Drug Taking</a>
+                <a class="navbar-brand" href="#myPage">Drug Taking</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav navbar-right">
@@ -316,6 +323,7 @@
                             </tr>
                         </table>
                     </div>
+
                 </ul>
             </div>
 
@@ -334,7 +342,7 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="https://i.pinimg.com/originals/41/d4/b5/41d4b500ddb7f18811bf54b45052792a.jpg" width="1200" height="700">
+                <img src="http://res.publicdomainfiles.com/pdf_view/167/13995322819568.jpg" width="1200" height="700">
                 <div class="carousel-caption">
                     <h3>Vintage Cocaine Propaganda</h3>
                     <p>Propaganda from 40s.</p>
@@ -350,7 +358,7 @@
             </div>
 
             <div class="item">
-                <img src="http://reefermadnessmuseum.org/book/DrugDemonS.jpg" width="1200" height="700">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZeEHV85c_rOatgmHiLiir08WDMq4wahNhpxgcsbAwPdzbuBdC" width="1200" height="700">
                 <div class="carousel-caption">
                     <h3>Marihuana</h3>
                     <p>From the Reefer Madness Era</p>
@@ -367,6 +375,18 @@
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+    </div>
+
+    <!-- TEST Jumbotron-->
+    <div class="bg-0">
+        <div class="container-fluid">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello, world!</h1>
+                <p class="lead">Welcome to this page of drug taking.</p>
+                <hr class="my-4">
+                <p>I hope you these information can help you.</p>
+            </div>
+        </div>
     </div>
 
     <!-- Container (ABOUT Section) -->
@@ -435,6 +455,53 @@
         </p>
     </div>
 
+    <!-- TEST Collapse -->
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Depressant
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    A depressant, or central depressant, is a drug that lowers neurotransmission levels, which is to depress or reduce arousal or stimulation, in various areas of the brain. Depressants are also occasionally referred to as "downers" as they lower the level of arousal when taken. Stimulants or "uppers" increase mental and/or physical function, hence the opposite drug class of depressants is stimulants, not antidepressants.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Stimulants
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    Stimulants (also often referred to as psychostimulants or colloquially as uppers) is an overarching term that covers many drugs including those that increase activity of the central nervous system and the body,[1] drugs that are pleasurable and invigorating, or drugs that have sympathomimetic effects. Stimulants are widely used throughout the world as prescription medicines as well as without a prescription (either legally or illicitly) as performance-enhancing or recreational drugs.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Hallucinogens
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    Hallucinogens are a diverse group of drugs that alter perception (awareness of surrounding objects and conditions), thoughts, and feelings. They cause hallucinations, or sensations and images that seem real though they are not. Hallucinogens can be found in some plants and mushrooms (or their extracts) or can be human-made. People have used hallucinogens for centuries, mostly for religious rituals.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Container (CATEGORY Section) -->
     <div id="category" class="bg-1">
         <div class="container">
@@ -499,7 +566,7 @@
             });
             marker.setMap(map);
         }
-    </script>
+        </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFUkX6a7GRcY5QpWrY7qFBLQ8_ktSdOEM&callback=myMap"></script>
         <!--
         To use this code on your website, get a free API key from Google.
@@ -519,44 +586,7 @@
             <p><a href="https://psychonautwiki.org/wiki/PsychonautWiki">Visit</a></p>
         </div>
     </div>
-
-    <!-- Container (FAVOURITES Section) -->
-    <div id="faves" class="container">
-        <p class="text-center">Try some legal drugs.</p>
-        <table style="width:100%">
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Click to add faves</th>
-            </tr>
-            <tr>
-                <td>Beer</td>
-                <td>the liquid bread</td>
-                <td><button name="f1" id="fBtn1">Fav</button></td>
-            </tr>
-            <tr>
-                <td>Whisky</td>
-                <td>water of life</td>
-                <td><button name="f2" id="fBtn2">Fav</button></td>
-            </tr>
-            <tr>
-                <td>Rum</td>
-                <td>sweeties</td>
-                <td><button name="f3" id="fBtn3">Fav</button></td>
-            </tr>
-            <tr>
-                <td>Vodka</td>
-                <td>vvvvv</td>
-                <td><button name="f4" id="fBtn4">Fav</button></td>
-            </tr>
-            <tr>
-                <td>Tequila</td>
-                <td>mexico</td>
-                <td><button name="f5" id="fBtn5">Fav</button></td>
-            </tr>
-        </table>
-    </div>
-
+    
     <!-- Container (FAVOURITES Section) Card Test-->
     <div id="cardtest" class="container">
         <div class="row">
@@ -672,7 +702,7 @@
 
         </div>
     </div>
-
+   
     <!-- Footer -->
     <footer class="text-center">
         <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
@@ -694,14 +724,21 @@
           $("#loginBtn").hide();
           $("#registerBtn").hide();
           $("#dropdownBtn").text("FAVOURITES/LOGOUT");
-            //for each loop here
-            //alert("all cardBtns has been disabled)
-          //alert("login,register button hidden");
+
+            $('a[name=cardBtn]').each(function(){
+                $(this).removeAttr("disabled");
+            });
+
+          //alert("login,register unavailable");
         } else {
           $("#logoutBtn").hide();
           $("#favesBtn").hide();
-            //for each loop here
-            //alert('all cardBtns are enabled');
+
+            $('a[name=cardBtn]').each(function(){
+                //$(this).hide(); //Alternative would be $(this).css("display", "none");
+                $(this).attr("disabled", true);
+                $(this).text("sign in to add");
+            });
         }
 
       // logout starts here
@@ -710,7 +747,7 @@
         $("#loginBtn").show();
         $("#registerBtn").show();
         $("#dropdownBtn").text("LOGIN/REGISTER");
-        alert("login,register button unhide");
+        alert("login,register available");
       });
 
       // favBtn starts here
@@ -737,7 +774,8 @@
                     }
                 });
         });
-       $("#favBtn2").click(function() {
+
+        $("#favBtn2").click(function() {
         var d1=$("#def").text();
         var d2=$("#def2").val();
 
@@ -779,7 +817,7 @@
                     }
                 });
         });
-        /*
+        /* make nested switch for all favBtn!?
         $("input[type='button']").click(function() {
             switch($(this).attr('id')) {
                 case 'buttonone' : $("#content").html("Content changed"); break;

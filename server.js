@@ -38,8 +38,16 @@ var dbUrl = "mongodb://localhost:27017/";
                         user.id = "_"+ Math.random().toString(10).substr(2,8); // .random value is usually (0.xxxxxx), toString(10) gives 0-9, substr cut the number
                         console.log("generated id = " + user.id);
 
+                        var splitMsg = formData.split("&");
+                        console.log("splitMsg[1] = " + splitMsg[1]);
+                        var splitEmail =  splitMsg[1].split("=");
+                        console.log("splitEmail[1] = " + splitEmail[1]);
+                        var strEmail = JSON.stringify(splitEmail);
+                        console.log("strEmail = "+ strEmail);
+
                         var query = { "id" : user.id };
-                        
+                        //var queryEmail = { "email" : strEmail };
+
                         var strQuery = JSON.stringify(query);
                         console.log("converted strQuery = " + strQuery);
                         var ObjQuery = JSON.parse(strQuery);
@@ -50,6 +58,7 @@ var dbUrl = "mongodb://localhost:27017/";
                         console.log("converted msg = " + msg);
                         stringMsg = JSON.parse(msg); //convert string to JSON Object
                         console.log("converted stringMsg = " + stringMsg);
+
                             MongoClient.connect(dbUrl,{ useNewUrlParser: true}, function(err, db) {
                                 if (err) throw err;
                                 var dbo = db.db("mydb");
@@ -57,6 +66,7 @@ var dbUrl = "mongodb://localhost:27017/";
                                 var Obj2 = ObjQuery;
 
                                     dbo.collection("users").insertOne(Obj, function(err, res) {
+                                    //dbo.collection("users").findAndInsertOne(Obj, function(err, res) {
                                         if (err) throw err;
                                         console.log("1 document inserted in users");
                                         //db.close();
@@ -68,7 +78,7 @@ var dbUrl = "mongodb://localhost:27017/";
                                         db.close();
                                     });
                                     */
-                                var fav = {faves:[]};
+                                var fav = { faves:[] };
                                 /* this one just works
                                 dbo.collection("faves").updateOne(query, {$set : fav});
                                    this one does not, no idea why 
@@ -180,19 +190,30 @@ var dbUrl = "mongodb://localhost:27017/";
         stringMsg = locId;
         console.log("stringMsg= "+ locId);
 
-          MongoClient.connect(dbUrl, { useNewUrlParser: true}, function(err, db) {
+          MongoClient.connect(dbUrl, { useNewUrlParser: true }, function(err, db) {
             if (err) throw err;
             var dbo = db.db("mydb");
             var query = { id: stringMsg };
             console.log("query = "+ JSON.stringify(query));
-            
-            dbo.collection("users").findOne(query, { faves:1 }).toArray(function(err, result) {
+
+            /* debug layer by layer
+              //dbo.collection("users").findOne(query, { faves:1 }).toArray(function(err, result) {
+
+              dbo.collection("users").findOne({}).toArray(function(err, result) {
                 if (err) throw err;
                 console.log("GET on Favourites page");
                 console.log("result = " + JSON.stringify(result[0].faves));
-                //db.close();
+                db.close();
                 return res.end(JSON.stringify(result[0].faves));
               });
+            */
+
+            dbo.collection("users").find(query, { faves:1 }).toArray(function(err, result) {
+                if (err) throw err;
+                console.log(result);
+                res.end(JSON.stringify(result[0].faves));
+                db.close();
+            });
             
           });
             //return res.end("good");
@@ -284,13 +305,33 @@ var dbUrl = "mongodb://localhost:27017/";
                     }
                   });
 */
-                // this replace the block above but need to return the result(success or not)
-                dbo.collection("users").findOneAndUpdate({ $and: [ ObjId , { faves: { $nin: [splitMsg[1]] } } ] }, { $push: ObjFaves }, function(err, res) {
+                  //this replace the block above but need to return the result(success or not), try with $addToSet
+                  //dbo.collection("users").findOneAndUpdate({ $and: [ ObjId , { faves: { $nin: [splitMsg[1]] } } ] }, { $push: ObjFaves }, function(err, res) {
+                  dbo.collection("users").updateOne(ObjId, { $addToSet: ObjFaves }, function(err, res) {
                     if (err) throw err;
-                        //if (count > 0) {
+                    console.log("push error = "+err);
+                    console.log("push result = "+res);
+                    var dbResult = JSON.stringify(res);
+                    console.log("converted push result = "+JSON.stringify(res));
+
+                    //var ObjKey = res;
+                    var ObjKey2 = JSON.parse(res); //weird behaviour, started as a JSON String
+                    console.log("Converted ObjKey2 = "+ObjKey2);
+
+                    //console.log("ObjKey.value = " + ObjKey.value);
+                    //console.log("Converted ObjKey.value = " + JSON.stringify(ObjKey.value));
+                    console.log("ObjKey2.nModified = " + ObjKey2.nModified);
+                    console.log("Converted ObjKey2.nModified = " + JSON.stringify(ObjKey2.nModified));
+
+                        //if (ObjKey.value != null) {
+                        if (ObjKey2.nModified === 1) {
                             console.log("fave inserted");
-                        //} else
-                            //console.log("fave existed");
+                            //return res.end("insert success");
+                        } else {
+                            console.log("fave existed");
+                            //return res.end("insert failed");
+                        }
+
                     db.close();
                 });
 
@@ -300,56 +341,86 @@ var dbUrl = "mongodb://localhost:27017/";
         });
       }
       else { console.log("no user detected."); }
+
     } else if (action ==="/delFaves"){
       if (req.method === "POST") {
-        console.log("removing on faves page");
-        formData = '';
-                msg = '';
+            formData = '';
+            msg = '';
         return req.on('data', function(data) {
             formData += data;
-            console.log("form data=" + formData);
+            console.log("favourite form data = " + formData);
           return req.on('end', function() {
-            var user;
-            user = qs.parse(formData);
-            msg = JSON.stringify(user);
-            stringMsg = JSON.parse(msg);
-            var splitMsg = formData.split("=");
-            console.log("mess=" + msg);
-            console.log("mess=" + formData);
-            res.writeHead(200, {
-              "Content-Type": "application/json",
-              "Content-Length": msg.length
-            });
+            
+            var splitMsg = formData.split("&");
+            console.log("splitMsg = " + splitMsg);
+            console.log("splitMsg[1] = " + splitMsg[1]);
+
+            //res.writeHead(200, {
+            //  "Content-Type": "application/json",
+            //  "Content-Length": msg.length
+            //}//);
+
               MongoClient.connect(dbUrl,{ useNewUrlParser: true}, function(err, db) {
-                var finalcount;
+
                 if (err) throw err;
                 var dbo = db.db("mydb");
-                var Obj = {
-                  "user": loginUser,
-                  "favourite": splitMsg[1]
-                };
-                dbo.collection("faves").count(Obj, function(err, count) {
-                console.log(err, count);
-                finalcount = count;
-                  if (finalcount > 0) {
-                    dbo.collection("faves").deleteOne(Obj, function(err, res) {
-                      if (err) throw err;
-                      console.log("fave removed");
-                      db.close();
+                var ObjId = { "id" : splitMsg[0] };
+                var ObjFaves = { "faves" : splitMsg[1] };
+                console.log("converted ObjId = "+JSON.stringify(ObjId) + " , converted ObjFaves = "+JSON.stringify(ObjFaves));
+                console.log("ObjId = "+ObjId + " , ObjFaves = "+ObjFaves);
+
+                var ObjUpdate;
+                var ObjFilter;
+
+                    if (splitMsg[1]==="all") { 
+                        ObjUpdate = { $set : { faves:[] } };
+                        ObjFilter = ObjId;
+                        console.log("setting faves to empty, ObjUpdate = "+JSON.stringify(ObjUpdate));
+                        } else { 
+                            ObjUpdate = { $pull : ObjFaves };
+                            ObjFilter = { $and: [ ObjId , { faves: { $in: [splitMsg[1]] } } ] }
+                            }
+
+                    dbo.collection("users").findOneAndUpdate(ObjFilter, ObjUpdate, function(err, res) {
+                        console.log("pull error = "+err);
+                        console.log("pull result = "+res);
+                        console.log("converted pull result = "+JSON.stringify(res));
+                        var ObjKey = res;
+                        if (err) {
+                            console.log("pull error = "+err);
+                            throw err;
+                        }
+                        db.close();
+                       
                     });
-                    return res.end(msg);
-                  } else {
-                    if (err) throw err;
-                    console.log("fave not exist");
-                    db.close();
-                    return res.end("fail");
-                  }
-                });
+                    /*
+                    dbo.collection("faves").count(Obj, function(err, count) {
+                        console.log(err, count);
+                        finalcount = count;
+                          if (finalcount > 0) {
+//won't work for pulling the item out from array, will delete the matching document instead
+                                dbo.collection("faves").deleteOne(Obj, function(err, res) {
+                                  if (err) throw err;
+                                  console.log("fave removed");
+                                  db.close();
+                                });
+                            return res.end(msg);
+                          } else {
+                            if (err) throw err;
+                            console.log("fave not exist");
+                            db.close();
+                            return res.end("fail");
+                          }
+                    });
+                    */
               });
+ return res.end("success");
           });
         });
+return res.end("fail");
       }
       else { console.log("no user detected."); }
+
     } else if (action ==="/index") {
       if (req.method === "POST") {
           console.log("action = POST on index page");

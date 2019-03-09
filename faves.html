@@ -4,7 +4,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <style>
-/*   
+/*
   <tr>
   <td class="tabnum"></td>
   <td class="tabname"></td>
@@ -22,39 +22,49 @@
 </style>
 
 <body onload="chkFavList()">
-  <br><h1>
+    <br><h1>
     Favourites
-  </h1> 
-  <table id="favListTable" name="favListTable" style="width:100%">
-    <tr>
-      
-      <th>No.</th>
-      
-      <th>Item</th>
-<!--      
-      <th>Description</th>
--->
-      <th>Click to Remove</th>
- 
-    </tr>
-<!--     
-    <tr>
-      <td>No.</td>
-      <td>user</td>
-      <td>title</td>
-    </tr>
--->
-    <tr>
-      <td class="tabnum"></td>
-      <td class="tabname"></td>
-<!--
-      <td class="tabinfo"></td>
--->
-      <td class="tabBtn"></td>
-    </tr>
-  </table>
-  <script>
-function chkFavList() {
+    </h1>
+        <button id="reset" button type="button">Reset!</button>
+    <table id="favListTable" name="favListTable" style="width:100%">
+        <tr>
+
+            <th>No.</th>
+
+            <th>Item</th>
+            <!--
+                  <th>Description</th>
+            -->
+            <th>Click to Remove</th>
+
+        </tr>
+        <!--
+            <tr>
+              <td>No.</td>
+              <td>user</td>
+              <td>title</td>
+            </tr>
+        -->
+        <tr>
+            <td class="tabnum"></td>
+            <td class="tabname"></td>
+            <!--
+                  <td class="tabinfo"></td>
+            -->
+            <td class="tabBtn"></td>
+        </tr>
+    </table>
+
+    <script>
+/*
+    $(document).ready(function() {
+        var localId = localStorage.getItem("id");
+        //var localName = localStorage.getItem("Name");
+        alert("localId= " + localId);
+        //alert("localName= " + localName);
+    }
+*/
+    function chkFavList() {
 
       $.ajax({
         //url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/getFaves",
@@ -85,26 +95,54 @@ function chkFavList() {
     }
 
     function deleteBtnnn(i){
-      //TODO
-      alert(i);
+      var localId = localStorage.getItem("id");
+      alert("localId= " + localId);
+
+      var data1 = localId + "&" + i;
+      alert("data= " + data1);
 
       $.ajax({
-        url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/delFaves",
+        //url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/delFaves",
+        url: "http://127.0.0.1:9999/delFaves",
         type: 'POST',
         async: false,
-        data: i,
+        data: data1,
         success: function(data) {
-          chkFavList();
+          alert("success = "+ data);
+          window.location.assign("http://127.0.0.1:9999/faves");
         },
         error: function(xhr, textStatus, errorThrown) {
+          //alert("error = "+ data);
           alert("error");
+          alert("errorThrown= " +errorThrown);
           alert(xhr.responseText);
           //alert(xhr.d);
         },
       });
-    }</script>
-  <br>
-  <a href="/index">back</a>
+    }
+
+    $("#reset").click(function() {
+        alert("reset clicked")
+        var localId = localStorage.getItem("id");
+        var data = localId + "&" + "all";
+        alert("reset data = "+data);
+                $.ajax({
+                    url: "http://127.0.0.1:9999/delFaves",
+                    type: 'post',
+                    data: data,
+                    success: function(result) {
+                        alert(result);
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        alert("error = " + textStatus);
+                        console.log(textStatus);
+                    }
+                });
+    });
+
+    </script>
+    <br>
+    <a href="/index">Click here to go back</a>
 </body>
 
 </html>

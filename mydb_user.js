@@ -64,11 +64,12 @@ use this block to delete and confirm the deletion */
     //Show
     
     dbo.collection("users").find({}).toArray(function(err, result) {
+    //dbo.collection("users").find("email").toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
     db.close();
     });
-
+    
 /*
     dbo.collection("faves").find({}).toArray(function(err, result) {
     if (err) throw err;
@@ -102,5 +103,5 @@ use this block to delete and confirm the deletion */
         db.close();
     });
 */
-
+    //dbo.collection("users").distinct("email")
 });
