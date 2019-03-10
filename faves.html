@@ -131,7 +131,8 @@
                     type: 'post',
                     data: data,
                     success: function(result) {
-                        alert(result);
+                        alert("success, result = "+result);
+                        window.location.assign("http://127.0.0.1:9999/faves");
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         alert("error = " + textStatus);

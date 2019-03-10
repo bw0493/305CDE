@@ -40,19 +40,17 @@ var dbUrl = "mongodb://localhost:27017/";
 
                         var splitMsg = formData.split("&");
                         console.log("splitMsg[1] = " + splitMsg[1]);
+
                         var splitEmail =  splitMsg[1].split("=");
                         console.log("splitEmail[1] = " + splitEmail[1]);
-                        var strEmail = JSON.stringify(splitEmail);
-                        console.log("strEmail = "+ strEmail);
+                        var RevSplitEmail = decodeURIComponent(splitEmail[1]);
+                        console.log("RevSplitEmail = "+RevSplitEmail);
 
                         var query = { "id" : user.id };
-                        //var queryEmail = { "email" : strEmail };
-
                         var strQuery = JSON.stringify(query);
                         console.log("converted strQuery = " + strQuery);
                         var ObjQuery = JSON.parse(strQuery);
                         console.log("converted ObjQuery = " + ObjQuery);
-                        
 
                         msg = JSON.stringify(user); //convert JSON Object to string
                         console.log("converted msg = " + msg);
@@ -62,32 +60,28 @@ var dbUrl = "mongodb://localhost:27017/";
                             MongoClient.connect(dbUrl,{ useNewUrlParser: true}, function(err, db) {
                                 if (err) throw err;
                                 var dbo = db.db("mydb");
-                                var Obj = stringMsg;
-                                var Obj2 = ObjQuery;
 
-                                    dbo.collection("users").insertOne(Obj, function(err, res) {
-                                    //dbo.collection("users").findAndInsertOne(Obj, function(err, res) {
-                                        if (err) throw err;
-                                        console.log("1 document inserted in users");
-                                        //db.close();
-                                    });
-                                    /* use this block to add the object(contains only id) to seperated collection
-                                    dbo.collection("faves").insertOne(Obj2, function(err, response) {
-                                        if (err) throw err;
-                                        console.log("1 document inserted to faves");
-                                        db.close();
-                                    });
-                                    */
-                                var fav = { faves:[] };
-                                /* this one just works
-                                dbo.collection("faves").updateOne(query, {$set : fav});
-                                   this one does not, no idea why 
-                                dbo.collection("users").updateOne(query, {$set : fav});
-                                */
-                                    dbo.collection("users").updateOne(Obj2, {$set : fav}, function(err, res) {
-                                        if (err) throw err;
-                                        console.log("1 document updated in users");
-                                        db.close();
+                                dbo.collection("users").countDocuments({"email":RevSplitEmail}, function(err, count){
+                                    console.log(err, count);
+                                    finalcount = count;
+                                        if (finalcount > 0) {
+                                            if (err) throw err;
+                                            console.log("user already exist");
+                                            db.close();
+                                            return res.end("fail");
+                                        } 
+                                        else {
+                                            dbo.collection("users").insertOne(stringMsg, function(err, res) {
+                                                if (err) throw err;
+                                                console.log("1 document inserted in users");
+                                            });
+
+                                            dbo.collection("users").updateOne(ObjQuery, {$set : { faves:[] }}, function(err, res) {
+                                                if (err) throw err;
+                                                console.log("1 document updated in users");
+                                                db.close();
+                                            });
+                                        }        
                                     });
                             });
                             return res.end("good");
@@ -114,31 +108,17 @@ var dbUrl = "mongodb://localhost:27017/";
                         MongoClient.connect(dbUrl, { useNewUrlParser: true}, function(err, db) {
                             if (err) throw err;
                             var dbo = db.db("mydb");
-                            var Obj = stringMsg;
-                            console.log("credential Obj = " + Obj);
 
-                            dbo.collection("users").findOne(Obj, { id:1, name:1 },function(err, result) {
+                            dbo.collection("users").findOne(stringMsg, { id:1, name:1 },function(err, result) {
                             if (err) throw err;
                                 db.close();
                                 console.log(JSON.stringify(result) + " " + new Date());
                                 var myresult = JSON.stringify(result);
-                                    //loginFlag = true;
                                     userid = JSON.parse(myresult).id;
                                     console.log("userid from login query = " + userid);
-                                    //username = JSON.parse(myresult).name;
-                                    //return res.end(JSON.parse(myresult).name);
-                                return res.end(JSON.parse(myresult).id); //pass id to client side for
+                                    return res.end(JSON.parse(myresult).id); //pass id to client side for
                             });
-/*
-                            try {
-                            dbo.collection("users").findOne(Obj, { projection : { id:1, name:1 } } ).toArray(function(err, result) {
-                                if (err) throw err;
-                                console.log(JSON.stringify(result) + " " + new Date());
-                                var myresult = JSON.stringify(result);
-                                return res.end(JSON.parse(myresult).id); //pass id to client side for
-                            });
-                            } catch (e) { console.log(e); }
-*/
+
                         });
                     });
                 });
@@ -196,149 +176,68 @@ var dbUrl = "mongodb://localhost:27017/";
             var query = { id: stringMsg };
             console.log("query = "+ JSON.stringify(query));
 
-            /* debug layer by layer
-              //dbo.collection("users").findOne(query, { faves:1 }).toArray(function(err, result) {
-
-              dbo.collection("users").findOne({}).toArray(function(err, result) {
-                if (err) throw err;
-                console.log("GET on Favourites page");
-                console.log("result = " + JSON.stringify(result[0].faves));
-                db.close();
-                return res.end(JSON.stringify(result[0].faves));
-              });
-            */
-
             dbo.collection("users").find(query, { faves:1 }).toArray(function(err, result) {
                 if (err) throw err;
                 console.log(result);
                 res.end(JSON.stringify(result[0].faves));
                 db.close();
             });
-            
+
           });
-            //return res.end("good");
+
     } else if (action ==="/addFaves"){
       if (req.method === "POST") {
         formData = '';
         msg = '';
         return req.on('data', function(data) {
-
           formData += data;
           console.log("addFaves form data = " + formData);
 
           return req.on('end', function() {
-
             var splitMsg = formData.split("&");
             console.log("splitMsg = " + splitMsg);
-
-            res.writeHead(200, {
-              "Content-Type": "application/json",
-              "Content-Length": msg.length
-            });
+            var respondMsg;
 
               MongoClient.connect(dbUrl,{ useNewUrlParser: true}, function(err, db) {
-                //var finalcount;
+
                 if (err) throw err;
                 var dbo = db.db("mydb");
-
-                /* for the seperate collection method 
-                var Obj = {
-                  "user": splitMsg[0],
-                  "favourite": splitMsg[1]
-                };
-                */
-                /* 
-                var Obj = {
-                  "id": splitMsg[0],
-                  "faves": splitMsg[1]
-                };
-                */
 
                 var ObjId = { "id" : splitMsg[0] };
                 var ObjFaves = { "faves" : splitMsg[1] };
 
                 console.log("ObjId = "+ObjId + " , ObjFaves = "+ObjFaves);
 
-                /* 
-                  dbo.collection("users").count(splitMsg[0], function(err, count) {
-                    console.log(err, count);
-                    finalcount = count;
-                    if (finalcount > 0) {
-                      if (err) throw err;
-                      console.log("fave already exist");
-                      db.close();
-                      return res.end("fail");
-                    } else {
-                      dbo.collection("users").findOneAndModify(splitMsg[1], function(err, res) {
-                        if (err) throw err;
-                        console.log("fave inserted");
-                        db.close();
-                      });
-                      return res.end(msg);
-                    }
-                  });
-                 */
-/*
-                 // it prevents duplicates but inefficient with .count, should use upsert
-                 dbo.collection("users").count(Obj, function(err, count) {
-                    console.log(err, count);
-                    finalcount = count;
-                    if (finalcount > 0) {
-                      if (err) throw err;
-                      console.log("fave already exist");
-                      db.close();
-                      return res.end("fail");
-                    } else {
-
-                      //dbo.collection("faves").insertOne(Obj, function(err, res) {
-                        //if (err) throw err;
-                        //console.log("fave inserted");
-                        //db.close();
-                      //});
-                       
-                      dbo.collection("users").updateOne(ObjId,{ $push: ObjFaves }, function(err, res) {
-                        if (err) throw err;
-                        console.log("fave inserted");
-                        db.close();
-                      });
-                      return res.end(msg);
-                    }
-                  });
-*/
-                  //this replace the block above but need to return the result(success or not), try with $addToSet
-                  //dbo.collection("users").findOneAndUpdate({ $and: [ ObjId , { faves: { $nin: [splitMsg[1]] } } ] }, { $push: ObjFaves }, function(err, res) {
                   dbo.collection("users").updateOne(ObjId, { $addToSet: ObjFaves }, function(err, res) {
                     if (err) throw err;
                     console.log("push error = "+err);
                     console.log("push result = "+res);
                     var dbResult = JSON.stringify(res);
                     console.log("converted push result = "+JSON.stringify(res));
-
-                    //var ObjKey = res;
+                    
                     var ObjKey2 = JSON.parse(res); //weird behaviour, started as a JSON String
                     console.log("Converted ObjKey2 = "+ObjKey2);
-
-                    //console.log("ObjKey.value = " + ObjKey.value);
-                    //console.log("Converted ObjKey.value = " + JSON.stringify(ObjKey.value));
+                    db.close();
                     console.log("ObjKey2.nModified = " + ObjKey2.nModified);
                     console.log("Converted ObjKey2.nModified = " + JSON.stringify(ObjKey2.nModified));
-
-                        //if (ObjKey.value != null) {
+                    
                         if (ObjKey2.nModified === 1) {
                             console.log("fave inserted");
-                            //return res.end("insert success");
+                            respondMsg = "insert success";
+                            console.log("respondMsg = "+respondMsg);
                         } else {
                             console.log("fave existed");
-                            //return res.end("insert failed");
+                            respondMsg = "insert failed";
+                            console.log("respondMsg = "+respondMsg);
                         }
-
-                    db.close();
                 });
-
-                    //dbo.collection("faves").updateOne({"id" : splitMsg[0]},{ $push: { faves: splitMsg[1] } });
+                  return res.end(respondMsg);
+                  console.log("console respondMsg = "+respondMsg);
+//return res.end("parser really error?");
               });
           });
         });
+//return res.end("fail");
       }
       else { console.log("no user detected."); }
 
@@ -348,20 +247,12 @@ var dbUrl = "mongodb://localhost:27017/";
             msg = '';
         return req.on('data', function(data) {
             formData += data;
-            console.log("favourite form data = " + formData);
+            console.log("delFaves form data = " + formData);
           return req.on('end', function() {
-            
             var splitMsg = formData.split("&");
-            console.log("splitMsg = " + splitMsg);
             console.log("splitMsg[1] = " + splitMsg[1]);
 
-            //res.writeHead(200, {
-            //  "Content-Type": "application/json",
-            //  "Content-Length": msg.length
-            //}//);
-
               MongoClient.connect(dbUrl,{ useNewUrlParser: true}, function(err, db) {
-
                 if (err) throw err;
                 var dbo = db.db("mydb");
                 var ObjId = { "id" : splitMsg[0] };
@@ -372,11 +263,11 @@ var dbUrl = "mongodb://localhost:27017/";
                 var ObjUpdate;
                 var ObjFilter;
 
-                    if (splitMsg[1]==="all") { 
+                    if (splitMsg[1]==="all") {
                         ObjUpdate = { $set : { faves:[] } };
                         ObjFilter = ObjId;
                         console.log("setting faves to empty, ObjUpdate = "+JSON.stringify(ObjUpdate));
-                        } else { 
+                        } else {
                             ObjUpdate = { $pull : ObjFaves };
                             ObjFilter = { $and: [ ObjId , { faves: { $in: [splitMsg[1]] } } ] }
                             }
@@ -391,28 +282,9 @@ var dbUrl = "mongodb://localhost:27017/";
                             throw err;
                         }
                         db.close();
-                       
+
                     });
-                    /*
-                    dbo.collection("faves").count(Obj, function(err, count) {
-                        console.log(err, count);
-                        finalcount = count;
-                          if (finalcount > 0) {
-//won't work for pulling the item out from array, will delete the matching document instead
-                                dbo.collection("faves").deleteOne(Obj, function(err, res) {
-                                  if (err) throw err;
-                                  console.log("fave removed");
-                                  db.close();
-                                });
-                            return res.end(msg);
-                          } else {
-                            if (err) throw err;
-                            console.log("fave not exist");
-                            db.close();
-                            return res.end("fail");
-                          }
-                    });
-                    */
+
               });
  return res.end("success");
           });
@@ -431,7 +303,7 @@ return res.end("fail");
             console.log("form data= " + formData);
                 return req.on('end', function() {
                   var user;
-//var stringMsgLike = "/"+ formData + "$/";
+                  //var stringMsgLike = "/"+ formData + "$/";
                   stringMsg = formData;
                   console.log("stringMsg: " + stringMsg);
 
