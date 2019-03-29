@@ -21,6 +21,8 @@ jQuery
 
 NODE.js
 
+Bootstrap
+
 # API Endpoints
 
 ### User Login
