@@ -84,12 +84,8 @@ use this block to delete and confirm the deletion */
         if (delOK) console.log("Collection deleted");
         db.close();
     });
-    dbo.dropCollection("faves", function(err, delOK) {
-        if (err) throw err;
-        if (delOK) console.log("Collection deleted");
-        db.close();
-    }); 
 */
+
     //Create
 /*
 	dbo.createCollection("users", function(err, res) {

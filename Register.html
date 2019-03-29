@@ -137,10 +137,10 @@ var name = document.getElementById("name");
   var password = document.getElementById("password");
 
   $("#Register").click(function() {
-    alert("registering");
+    //alert("registering");
     //if (name.value != null && password.value != null){
       if (email.value.includes("@") && email.value.includes(".com")) {
-        alert("valid email"); //case for email
+        //alert("valid email"); //case for email
     //ajax call url parameter must contain "http://"
           $.ajax({
             //url: "http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/Register",
@@ -148,9 +148,15 @@ var name = document.getElementById("name");
             type: 'post',
             data: $('#credential').serialize(),
             success: function(result) {
-              console.log("register page post return= " + result);
-              //window.location.assign("http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/Login");
-              window.location.assign("http://127.0.0.1:9999/Login");
+              //alert("register page post return = " + result);
+              
+                if (result !== "fail"){
+                    alert("redirecting to login");
+                    window.location.assign("http://127.0.0.1:9999/Login");
+                } else {
+                    alert("user exist");
+                }
+
             },
             error: function(xhr, textStatus, errorThrown) {
               alert("error=" + textStatus);
@@ -160,6 +166,5 @@ var name = document.getElementById("name");
       } else
         alert("Error");
         console.log("error on registration!");
-        //window.location.assign("127.0.0.1:9999/Register");
-    //}
+
   });</script>

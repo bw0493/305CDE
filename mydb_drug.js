@@ -1,17 +1,17 @@
-// type node myserver.js via SSH Terminal in this container to start a server and allow index.html to run.
+// this file add, update, read a drug database
 var MongoClient = require('mongodb').MongoClient;
 var dbUrl = "mongodb://localhost:27017/";
 
-MongoClient.connect(dbUrl, function(err, db) {
+MongoClient.connect(dbUrl, { useNewUrlParser: true}, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  /*
+  
   dbo.collection("drugs").find({}).toArray(function(err, result) {
     if (err) throw err;
     console.log(result);
     db.close();
   });
-
+/*
   dbo.collection("drugs").drop(function(err, delOK) {
     if (err) throw err;
     if (delOK) console.log("Collection deleted");
@@ -29,8 +29,20 @@ MongoClient.connect(dbUrl, function(err, db) {
     console.log(result);
     db.close();
   });
-
-      var myobj = [{
+  */
+/*
+//structure your data here
+    var newObj = [
+        {
+            name:'abc',
+            description: ['haha', 'sasa', 'gaga'],
+            risk:[ head:"big", neck:"broke", body:"paralyzed"]            
+        }
+    ];
+*/   
+/*
+    var myobj = [
+        {
           name: 'MARIJUANA',
           description: 'Blunt, dope, ganja, grass, herb, joint, bud, Mary Jane, pot, reefer, green, trees, smoke, sinsemilla, skunk, weed',
           risks: 'Cough; frequent respiratory infections; possible mental health decline; addiction'
@@ -121,7 +133,7 @@ MongoClient.connect(dbUrl, function(err, db) {
     console.log("Number of documents inserted: " + res.insertedCount);
     db.close();
   });
-  */
+*/  
   //db.collection.getIndexes()
   //db.getCollection("drugs").getIndexes()
 });

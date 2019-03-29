@@ -1,175 +1,169 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="Login.css" />
-  <title>Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Login.css" />
+    <title>Login</title>
 </head>
 
 <style>
-  body {
-    margin: 0px;
-    padding: 0px;
-    background: #1abc9d;
-  }
+    body {
+        margin: 0px;
+        padding: 0px;
+        background: #1abc9d;
+    }
 
-  h1 {
-    color: #fff;
-    text-align: center;
-    font-family: Arial;
-    font-weight: normal;
-    margin: 2em auto 0px;
-  }
+    h1 {
+        color: #fff;
+        text-align: center;
+        font-family: Arial;
+        font-weight: normal;
+        margin: 2em auto 0px;
+    }
 
-  .form {
-    width: 400px;
-    height: 230px;
-    background: #edeff1;
-    margin: 0px auto;
-    padding-top: 20px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-  }
+    .form {
+        width: 400px;
+        height: 230px;
+        background: #edeff1;
+        margin: 0px auto;
+        padding-top: 20px;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+    }
 
-  input[type="text"] {
-    display: block;
-    width: 309px;
-    height: 35px;
-    margin: 15px auto;
-    background: #fff;
-    border: 0px;
-    padding: 5px;
-    font-size: 16px;
-    border: 2px solid #fff;
-    transition: all 0.3s ease;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-  }
-  input[type="password"] {
-    display: block;
-    width: 309px;
-    height: 35px;
-    margin: 15px auto;
-    background: #fff;
-    border: 0px;
-    padding: 5px;
-    font-size: 16px;
-    border: 2px solid #fff;
-    transition: all 0.3s ease;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-  }
-  
-  input[type="text"]:focus {
-    border: 2px solid #1abc9d
-  }
-  input[type="password"]:focus {
-    border: 2px solid #1abc9d
-  }
+    input[type="text"] {
+        display: block;
+        width: 309px;
+        height: 35px;
+        margin: 15px auto;
+        background: #fff;
+        border: 0px;
+        padding: 5px;
+        font-size: 16px;
+        border: 2px solid #fff;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
 
-  input[type="submit"] {
-    display: block;
-    background: #1abc9d;
-    width: 314px;
-    padding: 12px;
-    cursor: pointer;
-    color: #fff;
-    border: 0px;
-    margin: auto;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    font-size: 17px;
-    transition: all 0.3s ease;
-  }
+    input[type="password"] {
+        display: block;
+        width: 309px;
+        height: 35px;
+        margin: 15px auto;
+        background: #fff;
+        border: 0px;
+        padding: 5px;
+        font-size: 16px;
+        border: 2px solid #fff;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+    }
 
-  input[type="submit"]:hover {
-    background: #09cca6
-  }
-  
-  a {
-    text-align: center;
-    font-family: Arial;
-    color: gray;
-    display: block;
-    margin: 15px auto;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 12px;
-  }
+    input[type="text"]:focus {
+        border: 2px solid #1abc9d
+    }
 
-  a:hover {
-    color: #1abc9d;
-  }
+    input[type="password"]:focus {
+        border: 2px solid #1abc9d
+    }
 
-  ::-webkit-input-placeholder {
-    color: gray;
-  }
+    input[type="submit"] {
+        display: block;
+        background: #1abc9d;
+        width: 314px;
+        padding: 12px;
+        cursor: pointer;
+        color: #fff;
+        border: 0px;
+        margin: auto;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        font-size: 17px;
+        transition: all 0.3s ease;
+    }
 
-  :-moz-placeholder {
-    /* Firefox 18- */
-    color: gray;
-  }
+        input[type="submit"]:hover {
+            background: #09cca6
+        }
 
-  ::-moz-placeholder {
-    /* Firefox 19+ */
-    color: gray;
-  }
+    a {
+        text-align: center;
+        font-family: Arial;
+        color: gray;
+        display: block;
+        margin: 15px auto;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 12px;
+    }
 
-  :-ms-input-placeholder {
-    color: gray;
-  }
+        a:hover {
+            color: #1abc9d;
+        }
+
+    ::-webkit-input-placeholder {
+        color: gray;
+    }
+
+    :-moz-placeholder {
+        /* Firefox 18- */
+        color: gray;
+    }
+
+    ::-moz-placeholder {
+        /* Firefox 19+ */
+        color: gray;
+    }
+
+    :-ms-input-placeholder {
+        color: gray;
+    }
 </style>
 
 <body>
 
-  <h1>Login to edit faves!</h1>
+    <h1>Login to edit faves!</h1>
 
-  <div class="stand">
-      <div class="inner-screen">
-        <div class="form">
-          <form id="credential">          
-          <input type="text" class="zocial-dribbble" placeholder="abc@example.com" id="email" name="email" autofocus required/>
-          <input type="password" class="zocial-dribbble" placeholder="Password" id="password" name ="password" required/>
-          </form>
-          <button id="Login" button type="button" class="btn btn-lg btn-primary btn-block">Login</button>
+    <div class="stand">
+        <div class="inner-screen">
+            <div class="form">
+                <form id="credential">
+                    <input type="text" class="zocial-dribbble" placeholder="abc@example.com" id="email" name="email" autofocus=autofocus required=required />
+                    <input type="password" class="zocial-dribbble" placeholder="Password" id="password" name="password" required=required />
+                </form>
+                <button id="Login" button=button type="button" class="btn btn-lg btn-primary btn-block">Login</button>
+            </div>
         </div>
-      </div>
-  </div>
+    </div>
 </body>
 
 </html>
 
 <script>
-//import Cookies from 'universal-cookie';
-  //const cookies = new Cookies();
-  //var name = document.getElementById("name");
+
   var email = document.getElementById("email");
   var password = document.getElementById("password");
 
   function setCookie(cname, cvalue) {
-  //function setCookie(cname, cvalue, exdays) {
-    //var d = new Date();
-    //d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    //var expires = "expires="+ d.toUTCString();
-    //document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     document.cookie = cname + "=" + cvalue;
   }
 
   $("#Login").click(function() {
     if (email.value.includes("@") && email.value.includes(".com")) {
-      alert("email valid checked"); //case for email
-    } else {
-      alert("email Error");
-    }
-    alert($('#credential').serialize());
-    //ajax call url parameter must contain "http://"
+      //alert("email valid checked"); //case for email
+
+    //if (password.value != null && password != "Password") {
+        //ajax call url parameter must contain "http://"
+        //alert($('#credential').serialize());
       $.ajax(
         {
           //url: "http://port-9999.wwlb_305cde-177370493790498.codeanyapp.com/Login",
@@ -177,22 +171,23 @@
           type: 'post',
           data: $('#credential').serialize(),
             success: function(result) {
-                alert(result);
+
+                if (result !== "null"){
+                    //alert("client result:"+ JSON.stringify(result)+ " " + new Date());
+                    window.location.assign("http://127.0.0.1:9999/index");
+                }
+                else { alert("Login credential error. Please check your input."); }
+
                     if (typeof(Storage) !== "undefined") {
                         // Code for localStorage
                         localStorage.setItem("id", result);
-                        //cookies.set("id", result);
                         setCookie("id",result);
-                        //localStorage.setItem("name" result);
-                    } 
+                    }
                     else {
                         // localStorage is not available
                         window.sessionStorage.setItem("id", result);
                     }
-                if (result != null){
-                    alert("client result:"+ JSON.stringify(result)+ " " + new Date());
-                    window.location.assign("http://127.0.0.1:9999/index");
-                }
+
             },
           error: function(xhr, textStatus, errorThrown) {
             alert("error = " + textStatus);
@@ -200,4 +195,11 @@
           }
         }
       );
-  });</script>
+    //}
+        } else {
+            alert("Error, please check your input.");
+        }
+
+  });
+
+</script>

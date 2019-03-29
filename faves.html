@@ -56,14 +56,7 @@
     </table>
 
     <script>
-/*
-    $(document).ready(function() {
-        var localId = localStorage.getItem("id");
-        //var localName = localStorage.getItem("Name");
-        alert("localId= " + localId);
-        //alert("localName= " + localName);
-    }
-*/
+
     function chkFavList() {
 
       $.ajax({
@@ -72,7 +65,7 @@
         type: 'GET',
         async: false,
         success: function(data) {
-          alert(JSON.stringify(data));
+          //alert(JSON.stringify(data));
           var _stringObj = JSON.stringify(data);
           var stringObj = JSON.parse(data);
           //if (stringObj.Msg != "") {
@@ -96,10 +89,10 @@
 
     function deleteBtnnn(i){
       var localId = localStorage.getItem("id");
-      alert("localId= " + localId);
+      //alert("localId= " + localId);
 
       var data1 = localId + "&" + i;
-      alert("data= " + data1);
+      //alert("data= " + data1);
 
       $.ajax({
         //url: "http://port-9999.wwlb_305CDE-177370493790498.codeanyapp.com/delFaves",
@@ -108,30 +101,28 @@
         async: false,
         data: data1,
         success: function(data) {
-          alert("success = "+ data);
+          //alert("success = "+ data);
           window.location.assign("http://127.0.0.1:9999/faves");
         },
         error: function(xhr, textStatus, errorThrown) {
-          //alert("error = "+ data);
           alert("error");
           alert("errorThrown= " +errorThrown);
           alert(xhr.responseText);
-          //alert(xhr.d);
         },
       });
     }
 
     $("#reset").click(function() {
-        alert("reset clicked")
+        //alert("reset clicked");
         var localId = localStorage.getItem("id");
         var data = localId + "&" + "all";
-        alert("reset data = "+data);
+        //alert("reset data = "+data);
                 $.ajax({
                     url: "http://127.0.0.1:9999/delFaves",
                     type: 'post',
                     data: data,
                     success: function(result) {
-                        alert("success, result = "+result);
+                        //alert("success, result = "+result);
                         window.location.assign("http://127.0.0.1:9999/faves");
                     },
                     error: function(xhr, textStatus, errorThrown) {
